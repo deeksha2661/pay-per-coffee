@@ -7,18 +7,18 @@
 using namespace std;
 
 class transaction{
-Public:
+public:
 	string payer;
 	string payee;
 	int amount;
 }
 
 class block{
-Public:
+public:
        transaction trans[5];
        string prev_hash;
        string cur_hash;
-}       
+} 
 
 int main(){
 	string hash_payer[5];
@@ -53,11 +53,13 @@ int main(){
 		hash_total += to_string(b.trans[i].amount);
 	 }
 
-	 picosha2 :: hash256_hex_string(hash_total, cur_hash);
+	 picosha2 :: hash256_hex_string(hash_total, b.cur_hash);
 	
-	 cout << prev_hash\n cur_hash <<endl;
+	 cout << b.prev_hash << endl;
+	 cout << b.cur_hash << endl;
 
 
 
 	return 0;
 }
+
