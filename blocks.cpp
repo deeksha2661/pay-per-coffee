@@ -11,14 +11,14 @@ public:
 	string payer;
 	string payee;
 	int amount;
-}
+};
 
 class block{
 public:
        transaction trans[5];
        string prev_hash;
        string cur_hash;
-} 
+}; 
 
 int main(){
 	string hash_payer[5];
@@ -30,7 +30,7 @@ int main(){
 	cout << "hello" << endl;
 
 	cout << "enter string for initial hash" << endl;
-	cin >> initial >> endl;
+	cin >> initial;
 	picosha2 :: hash256_hex_string(initial, b.prev_hash);
 	
 	string hash_total = b.prev_hash;
@@ -38,12 +38,12 @@ int main(){
 	cout << "plse enter transaction details" << endl;
 
 	 for(int i = 0; i < 5; i++){
-                cout << "enter payer" << i << endl;
-                cin >> b.trans[i].payer >> endl;
-                cout << "enter payee" << i << endl;
-                cin >> b.trans[i].payee >> endl;
-                cout << "enter amount" << endl;
-                cin >> b.trans[i].amount >> endl;
+                cout << "enter payer " << i+1 << endl;
+                cin >> b.trans[i].payer;
+                cout << "enter payee " << i+1 << endl;
+                cin >> b.trans[i].payee;
+                cout << "enter amount " << i+1 << endl;
+                cin >> b.trans[i].amount;
 
                 picosha2 :: hash256_hex_string(b.trans[i].payer, hash_payer[i]);
        		picosha2 :: hash256_hex_string(b.trans[i].payee, hash_payee[i]);
@@ -55,8 +55,18 @@ int main(){
 
 	 picosha2 :: hash256_hex_string(hash_total, b.cur_hash);
 	
-	 cout << b.prev_hash << endl;
-	 cout << b.cur_hash << endl;
+	 fstream file;
+	file.open("blocks.cpp", ios::binary | ios :: in | ios :: out);
+
+        if(!file.is_open()){
+		 cout << "error while opening" << endl;
+	}else{
+        	file.write((char*)&b, sizeof(b));
+	      file.close();
+	}	      
+
+	 cout << "prev_hash is " <<  b.prev_hash << endl;
+	 cout << "cur_hash is " << b.cur_hash << endl;
 
 
 
